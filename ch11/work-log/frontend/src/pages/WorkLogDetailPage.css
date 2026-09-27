@@ -1,0 +1,99 @@
+.worklog-detail-page {
+  padding: 16px;
+  text-align: left;
+}
+
+.worklog-detail-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  background: var(--bg);
+  box-shadow: rgba(0, 0, 0, 0.04) 0 4px 12px;
+}
+
+.worklog-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.worklog-detail-date {
+  font-size: 13px;
+  color: var(--text);
+  margin: 0;
+}
+
+.worklog-detail-card h1 {
+  margin: 8px 0 16px;
+  color: var(--text-h);
+  font-size: 26px;
+}
+
+.worklog-detail-card section {
+  padding: 16px 0;
+  border-top: 1px solid var(--border);
+}
+
+.worklog-detail-card h2 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 0 0 8px;
+}
+
+.worklog-detail-card p {
+  margin: 0;
+  color: var(--text-h);
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.worklog-detail-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.worklog-detail-actions a,
+.worklog-detail-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.worklog-detail-edit {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.worklog-detail-delete:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+  .worklog-detail-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 16px;
+  }
+
+  .worklog-detail-card {
+    padding: 32px;
+  }
+}

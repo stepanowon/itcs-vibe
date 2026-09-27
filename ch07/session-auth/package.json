@@ -1,0 +1,17 @@
+{
+  "name": "session-auth",
+  "version": "1.0.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node -e \"require('fs').rmSync('data/session-auth.db',{force:true})\" && node server.js",
+    "dev": "node -e \"require('fs').rmSync('data/session-auth.db',{force:true})\" && nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-session": "^1.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

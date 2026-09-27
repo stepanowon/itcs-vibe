@@ -1,0 +1,101 @@
+.mypage {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px;
+  text-align: left;
+}
+
+.mypage h1 {
+  margin: 0 0 12px;
+  color: var(--text-h);
+}
+
+.mypage h2 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  color: var(--text-h);
+}
+
+.mypage-profile dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 12px;
+  margin: 0 0 16px;
+}
+
+.mypage-profile dt {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.mypage-profile dd {
+  margin: 0;
+  color: var(--text-h);
+}
+
+.mypage-profile > p {
+  margin: 0 0 16px;
+  color: var(--text);
+}
+
+.mypage-profile button,
+.mypage-password button {
+  min-height: 44px;
+  border: none;
+  border-radius: 4px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.mypage-profile button:disabled,
+.mypage-password button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mypage-password form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mypage-password label {
+  font-size: 14px;
+  color: var(--text-h);
+}
+
+.mypage-password input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 44px;
+  padding: 0 12px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font: inherit;
+  color: var(--text-h);
+  background: var(--bg);
+}
+
+.mypage-password input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.mypage-password [role='alert'] {
+  color: #d1242f;
+}
+
+@media (min-width: 768px) {
+  .mypage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+}

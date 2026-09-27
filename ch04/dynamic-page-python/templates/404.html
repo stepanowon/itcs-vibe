@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block title %}404 Not Found{% endblock %}
+{% block hero_title %}404{% endblock %}
+{% block hero_subtitle %}요청하신 할 일을 찾을 수 없습니다.{% endblock %}
+
+{% block content %}
+<div class="card empty">
+  <p>존재하지 않는 할 일이거나 이미 삭제되었습니다.</p>
+  <a class="button" href="{{ request.url_for('list_todos') }}">목록으로 돌아가기</a>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>마이페이지 - 세션 인증 예제</title>
+<style>
+  body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f2f2f2; }
+  .card { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); width: 340px; }
+  h1 { font-size: 1.2rem; margin-top: 0; }
+  dl { font-size: 0.9rem; }
+  dt { color: #666; margin-top: 0.6rem; }
+  dd { margin: 0; word-break: break-all; }
+  button { width: 100%; padding: 0.6rem; margin-top: 1rem; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>마이페이지 (보호된 페이지)</h1>
+    <dl id="info"></dl>
+    <button id="logoutBtn">로그아웃</button>
+  </div>
+  <script src="mypage.js"></script>
+</body>
+</html>

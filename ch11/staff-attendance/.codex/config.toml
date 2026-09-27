@@ -1,0 +1,52 @@
+[project]
+project_doc_fallback_filenames = [
+    "CLAUDE.md",
+    "README.md"
+]
+
+[features]
+hooks = true
+
+[agents]
+enabled = true
+max_concurrent_threads_per_session=6
+default_subagent_model="gpt-5.6-luna"
+default_subagent_reasoning_effort="medium"
+interrupt_message=true 
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp"]
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@playwright/mcp@latest"]
+
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@latest"]
+
+[mcp_servers.supabase]
+type = "http"
+url = "https://mcp.supabase.com/mcp?features=docs,account,database,debugging,development,functions,branching"
+
+[mcp_servers.postgresql-mcp]
+command = "npx"
+args = ["-y", "@henkey/postgres-mcp-server"]
+
+[[hooks.Stop]]
+
+[[hooks.Stop.hooks]]
+type = "command"
+command = "powershell.exe -NoProfile -Command \"(New-Object Media.SoundPlayer 'C:\\Windows\\Media\\Alarm02.wav').PlaySync()\""
+command_windows = "C:/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -Command \"(New-Object Media.SoundPlayer 'C:\\Windows\\Media\\Alarm02.wav').PlaySync()\""
+timeout = 10
+
+[[hooks.PostToolUse]]
+matcher = "Write|Edit"
+
+[[hooks.PostToolUse.hooks]]
+type = "command"
+command = "npx prettier --write . > /dev/null 2>&1"
+command_windows = "npx prettier --write . > NUL 2>&1"
+timeout = 60

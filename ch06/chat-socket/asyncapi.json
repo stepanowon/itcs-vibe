@@ -1,0 +1,101 @@
+{
+  "asyncapi": "2.6.0",
+  "info": {
+    "title": "chat-socket WebSocket API",
+    "version": "1.0.0",
+    "description": "세션 쿠키 인증 기반 실시간 채팅 WebSocket API. HTTP 업그레이드 시 express-session 쿠키로 로그인 여부를 확인하며, 이후 모든 클라이언트는 단일 채널로 메시지를 송수신합니다."
+  },
+  "servers": {
+    "development": {
+      "url": "localhost:3000",
+      "protocol": "ws",
+      "description": "로컬 개발 서버. 업그레이드 요청에 로그인 세션 쿠키(connect.sid)가 없으면 소켓이 즉시 종료됩니다.",
+      "security": [
+        { "sessionCookie": [] }
+      ]
+    }
+  },
+  "defaultContentType": "application/json",
+  "channels": {
+    "/": {
+      "description": "채팅 메시지 송수신용 단일 채널. 클라이언트는 메시지를 publish하고, 서버는 접속 중인 모든 클라이언트에게 동일한 메시지를 broadcast(subscribe)합니다.",
+      "subscribe": {
+        "summary": "서버가 새 채팅 메시지를 모든 접속 클라이언트에게 브로드캐스트",
+        "operationId": "receiveChatMessage",
+        "message": {
+          "$ref": "#/components/messages/ChatMessageBroadcast"
+        }
+      },
+      "publish": {
+        "summary": "클라이언트가 새 채팅 메시지를 서버로 전송",
+        "operationId": "sendChatMessage",
+        "message": {
+          "$ref": "#/components/messages/ChatMessageSend"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sessionCookie": {
+        "type": "httpApiKey",
+        "name": "connect.sid",
+        "in": "cookie",
+        "description": "POST /api/login으로 발급되는 express-session 쿠키. 업그레이드 요청에 유효한 로그인 세션이 없으면 서버가 연결을 종료합니다."
+      }
+    },
+    "messages": {
+      "ChatMessageSend": {
+        "name": "ChatMessageSend",
+        "title": "클라이언트 → 서버 채팅 메시지",
+        "contentType": "application/json",
+        "payload": {
+          "$ref": "#/components/schemas/ChatMessageInput"
+        }
+      },
+      "ChatMessageBroadcast": {
+        "name": "ChatMessageBroadcast",
+        "title": "서버 → 클라이언트 브로드캐스트 메시지",
+        "contentType": "application/json",
+        "payload": {
+          "$ref": "#/components/schemas/ChatMessageEvent"
+        }
+      }
+    },
+    "schemas": {
+      "ChatMessageInput": {
+        "type": "object",
+        "required": ["content"],
+        "properties": {
+          "content": {
+            "type": "string",
+            "description": "채팅 메시지 본문. 빈 문자열(공백 제거 후)이면 서버가 무시합니다."
+          }
+        }
+      },
+      "ChatMessageEvent": {
+        "type": "object",
+        "required": ["type", "message"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "message"
+          },
+          "message": {
+            "$ref": "#/components/schemas/Message"
+          }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "description": "메시지 ID (AUTOINCREMENT)" },
+          "content": { "type": "string", "description": "메시지 본문" },
+          "created_at": { "type": "string", "format": "date-time", "description": "SQLite datetime('now') 기준 생성 시각" },
+          "username": { "type": "string", "description": "작성자 로그인 아이디" },
+          "display_name": { "type": "string", "description": "작성자 표시 이름" }
+        }
+      }
+    }
+  }
+}

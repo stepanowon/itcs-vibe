@@ -1,0 +1,19 @@
+{
+  "name": "restapi-todos",
+  "version": "1.0.0",
+  "description": "Express 기반 간단한 CRUD REST API 예제",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "lowdb": "^1.0.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

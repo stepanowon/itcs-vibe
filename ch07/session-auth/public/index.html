@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>로그인 - 세션 인증 예제</title>
+<style>
+  body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f2f2f2; }
+  form { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); width: 260px; }
+  h1 { font-size: 1.2rem; margin-top: 0; }
+  input { width: 100%; padding: 0.5rem; margin-bottom: 0.8rem; box-sizing: border-box; }
+  button { width: 100%; padding: 0.6rem; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+  #error { color: red; font-size: 0.85rem; min-height: 1.2em; }
+</style>
+</head>
+<body>
+  <form id="loginForm">
+    <h1>로그인</h1>
+    <input type="text" id="username" placeholder="아이디 (user1/user2)" autocomplete="username" required>
+    <input type="password" id="password" placeholder="비밀번호" autocomplete="current-password" required>
+    <div id="error"></div>
+    <button type="submit">로그인</button>
+  </form>
+  <script src="login.js"></script>
+</body>
+</html>

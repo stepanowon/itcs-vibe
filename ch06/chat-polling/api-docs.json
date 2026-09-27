@@ -1,0 +1,163 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "chat-polling REST API",
+    "version": "1.0.0",
+    "description": "세션 쿠키 인증 기반 폴링 방식 채팅 REST API"
+  },
+  "servers": [{ "url": "/" }],
+  "components": {
+    "securitySchemes": {
+      "sessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "connect.sid"
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "username": { "type": "string" },
+          "displayName": { "type": "string" }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "userId": { "type": "integer" },
+          "content": { "type": "string" },
+          "createdAt": { "type": "string" }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/login": {
+      "post": {
+        "summary": "로그인",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": { "type": "string" },
+                  "password": { "type": "string" }
+                },
+                "required": ["username", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "로그인 성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "user": { "$ref": "#/components/schemas/User" } }
+                }
+              }
+            }
+          },
+          "401": { "description": "아이디 또는 비밀번호가 올바르지 않음" }
+        }
+      }
+    },
+    "/api/logout": {
+      "post": {
+        "summary": "로그아웃",
+        "responses": {
+          "200": { "description": "로그아웃 성공" }
+        }
+      }
+    },
+    "/api/me": {
+      "get": {
+        "summary": "현재 로그인한 사용자 조회",
+        "responses": {
+          "200": {
+            "description": "사용자 정보 (비로그인 시 user: null)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "user": { "$ref": "#/components/schemas/User" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/messages": {
+      "get": {
+        "summary": "메시지 목록 조회 (폴링)",
+        "security": [{ "sessionCookie": [] }],
+        "parameters": [
+          {
+            "name": "after",
+            "in": "query",
+            "description": "이 ID 이후의 메시지만 조회",
+            "schema": { "type": "integer", "default": 0 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "메시지 목록",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "messages": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Message" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "로그인이 필요함" }
+        }
+      },
+      "post": {
+        "summary": "메시지 전송",
+        "security": [{ "sessionCookie": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": { "content": { "type": "string" } },
+                "required": ["content"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "생성됨",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "id": { "type": "integer" } }
+                }
+              }
+            }
+          },
+          "400": { "description": "메시지 내용이 없음" },
+          "401": { "description": "로그인이 필요함" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+1. 직원의 이름, 급여, 직원의 관리자 이름을 조회하시오. 
+   단, 관리자가 없는 직원은 '관리자없음'이 출력되도록 해야 한다.
+
+SET search_path TO hr;
+
+SELECT e.first_name,
+    e.salary,
+    COALESCE(m.first_name, '관리자없음') AS manager_name
+FROM employees e
+LEFT OUTER JOIN employees m
+    ON e.manager_id = m.employee_id
+ORDER BY e.employee_id;
+
+
+
+2. 각 부서 이름별로 최대급여와 최소급여를 조회하시오. 
+   단, 최대/최소급여가 동일한 부서는 출력결과에서 제외시킨다.
+
+SET search_path TO hr;
+
+SELECT d.department_name,
+       MAX(e.salary) AS max_salary,
+       MIN(e.salary) AS min_salary
+FROM departments d
+JOIN employees e
+  ON d.department_id = e.department_id
+GROUP BY d.department_name
+HAVING MAX(e.salary) <> MIN(e.salary)
+ORDER BY d.department_name;
+
+
+3. 국가별 근무 인원수를 조회하시오. 단, 인원수가 3명 이상인 국가정보만 출력되어야함.
+
+SET search_path TO hr;
+
+SELECT c.country_name,
+       COUNT(*) AS employee_count
+FROM employees e
+JOIN departments d
+  ON e.department_id = d.department_id
+JOIN locations l
+  ON d.location_id = l.location_id
+JOIN countries c
+  ON l.country_id = c.country_id
+GROUP BY c.country_name
+HAVING COUNT(*) >= 3
+ORDER BY employee_count DESC;
+
+
+4. 자신이 속한 부서의 평균급여보다 많은 급여를 받는 직원정보만 조회하시오.
+   단, 출력결과에 자신이 속한 부서의 평균 급여정보도 출력되어야한다.
+
+SET search_path TO hr;
+
+SELECT e.employee_id,
+       e.first_name,
+       e.last_name,
+       e.department_id,
+       e.salary,
+       (
+           SELECT AVG(e2.salary)
+           FROM employees e2
+           WHERE e2.department_id = e.department_id
+       ) AS department_avg_salary
+FROM employees e
+WHERE e.salary >
+      (
+          SELECT AVG(e2.salary)
+          FROM employees e2
+          WHERE e2.department_id = e.department_id
+      )
+ORDER BY e.department_id, e.salary DESC;
+
+

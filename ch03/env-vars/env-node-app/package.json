@@ -1,0 +1,13 @@
+{
+  "name": "env-vars-app",
+  "version": "1.0.0",
+  "description": "환경 변수를 활용하는 Node.js 예제",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node -r dotenv/config app.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0"
+  }
+}

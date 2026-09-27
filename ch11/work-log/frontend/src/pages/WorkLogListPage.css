@@ -1,0 +1,224 @@
+.worklog-list-page {
+  padding: 16px;
+  text-align: left;
+}
+
+.worklog-filter {
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  background: var(--bg);
+}
+
+.worklog-filter-title {
+  margin: 0 0 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.filter-fields {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.filter-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 2;
+  min-width: 0;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.filter-field-label {
+  font-weight: 600;
+  color: var(--text-h);
+  white-space: nowrap;
+}
+
+.filter-field select {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-h);
+  background: var(--bg);
+  font: inherit;
+}
+
+.filter-apply {
+  flex: 1;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* 모바일: 카드형 목록 */
+.worklog-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.worklog-card-item {
+  margin: 0;
+}
+
+.worklog-card {
+  display: block;
+  min-height: 44px;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.worklog-date {
+  display: block;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.worklog-title {
+  display: block;
+  font-weight: 600;
+  color: var(--text-h);
+  margin: 4px 0;
+}
+
+.worklog-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: var(--code-bg);
+  color: var(--text);
+}
+
+.badge-done {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+.badge-progress {
+  background: var(--code-bg);
+}
+
+.worklog-empty {
+  margin: 0;
+  padding: 40px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--code-bg);
+  color: var(--text);
+  text-align: center;
+}
+
+/* 데스크톱: 표 형태 */
+.worklog-table {
+  display: none;
+}
+
+.worklog-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.worklog-pagination button {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.worklog-pagination button:disabled {
+  opacity: 0.5;
+}
+
+@media (min-width: 768px) {
+  .filter-fields {
+    max-width: 50%;
+    margin: 0 auto;
+  }
+
+  .worklog-cards {
+    display: none;
+  }
+
+  .worklog-table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+
+  .worklog-table th,
+  .worklog-table td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .worklog-table th:nth-child(1),
+  .worklog-table td:nth-child(1) {
+    width: 25%;
+  }
+
+  .worklog-table th:nth-child(2),
+  .worklog-table td:nth-child(2) {
+    width: 55%;
+  }
+
+  .worklog-table th:nth-child(3),
+  .worklog-table td:nth-child(3) {
+    width: 20%;
+  }
+
+  .worklog-row-linked {
+    position: relative;
+  }
+
+  .worklog-row-title {
+    color: var(--text-h);
+    font-weight: 600;
+  }
+
+  .stretched-link {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: inherit;
+  }
+}

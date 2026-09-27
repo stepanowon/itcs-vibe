@@ -1,0 +1,15 @@
+# 환경 변수 (DB 접속 정보 등 비밀 값)
+.env
+*.env
+!.env.example
+backend/.env
+frontend/.env
+
+# 의존성
+node_modules/
+
+# 로그
+*.log
+
+# playwright-mcp 브라우저 자동화 산출물(스냅샷/콘솔 로그)
+.playwright-mcp/

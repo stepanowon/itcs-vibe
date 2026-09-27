@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>XSS 실습 - <%= mode === 'vulnerable' ? '취약 버전' : '안전 버전' %></title>
+  <style>
+    body { font-family: sans-serif; max-width: 640px; margin: 40px auto; }
+    nav a { margin-right: 12px; }
+    .banner { padding: 10px; margin-bottom: 16px; }
+    .vulnerable .banner { background: #fdd; }
+    .safe .banner { background: #dfd; }
+    .msg { border-bottom: 1px solid #ddd; padding: 8px 0; }
+    .msg b { margin-right: 8px; }
+  </style>
+</head>
+<body class="<%= mode %>">
+  <nav>
+    <a href="/vulnerable">취약 버전</a>
+    <a href="/safe">안전 버전</a>
+  </nav>
+
+  <div class="banner">
+    <% if (mode === 'vulnerable') { %>
+      <strong>[취약]</strong> 검색어와 방명록 글을 이스케이프 없이 그대로 출력합니다.
+      payload 예: <code>&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code>
+    <% } else { %>
+      <strong>[안전]</strong> EJS의 <code>&lt;%= %&gt;</code>가 자동으로 HTML을 이스케이프합니다.
+    <% } %>
+  </div>
+
+  <h2>1) Reflected XSS - 검색</h2>
+  <form method="get" action="/<%= mode %>">
+    <input type="text" name="q" value="<%= q %>" placeholder="검색어 입력" />
+    <button type="submit">검색</button>
+  </form>
+  <p>
+    검색어:
+    <% if (mode === 'vulnerable') { %>
+      <%- q %>
+    <% } else { %>
+      <%= q %>
+    <% } %>
+  </p>
+
+  <h2>2) Stored XSS - 방명록</h2>
+  <form method="post" action="/<%= mode %>/messages">
+    <input type="text" name="name" placeholder="이름" value="공격자" />
+    <input type="text" name="text" placeholder="내용" size="40"
+      value="&lt;script&gt;alert(document.cookie)&lt;/script&gt;" />
+    <button type="submit">등록</button>
+  </form>
+  <div id="messages">
+    <% messages.forEach(function (message) { %>
+      <div class="msg">
+        <% if (mode === 'vulnerable') { %>
+          <b><%- message.name %></b><%- message.text %>
+        <% } else { %>
+          <b><%= message.name %></b><%= message.text %>
+        <% } %>
+      </div>
+    <% }); %>
+  </div>
+</body>
+</html>

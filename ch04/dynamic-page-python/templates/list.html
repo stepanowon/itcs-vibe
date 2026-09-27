@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block title %}Todo List{% endblock %}
+{% block hero_title %}오늘의 할 일{% endblock %}
+{% block hero_subtitle %}등록한 할 일을 확인하고, 완료 처리·수정·삭제할 수 있습니다.{% endblock %}
+
+{% block content %}
+<div class="toolbar">
+  <h2>할 일 목록 ({{ todos|length }})</h2>
+  <a class="button" href="{{ request.url_for('new_todo_form') }}">+ 새 할 일</a>
+</div>
+
+{% if todos %}
+<ul class="todo-list">
+  {% for todo in todos %}
+  <li class="todo-item {{ 'done' if todo.done else '' }}">
+    <span class="todo-title">{{ todo.title }}</span>
+    <span class="status {{ 'completed' if todo.done else 'pending' }}">
+      {{ '완료' if todo.done else '진행중' }}
+    </span>
+    <div class="todo-actions">
+      <form action="{{ request.url_for('toggle_todo', todo_id=todo.id) }}" method="post">
+        <button type="submit" class="icon-btn" title="완료 상태 전환">✓</button>
+      </form>
+      <a class="icon-btn" href="{{ request.url_for('edit_todo_form', todo_id=todo.id) }}" title="수정">✎</a>
+      <form action="{{ request.url_for('delete_todo', todo_id=todo.id) }}" method="post"
+            onsubmit="return confirm('정말 삭제하시겠습니까?');">
+        <button type="submit" class="icon-btn danger" title="삭제">✕</button>
+      </form>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<div class="card empty">등록된 할 일이 없습니다. 새 할 일을 추가해보세요.</div>
+{% endif %}
+{% endblock %}

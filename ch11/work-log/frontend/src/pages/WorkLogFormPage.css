@@ -1,0 +1,123 @@
+.worklog-form-page {
+  padding: 16px;
+  text-align: left;
+}
+
+.worklog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.worklog-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.worklog-form input,
+.worklog-form textarea {
+  min-height: 44px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font: inherit;
+  color: var(--text-h);
+  background: var(--bg);
+  box-sizing: border-box;
+}
+
+.worklog-form textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+
+.worklog-form fieldset {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 44px;
+  padding: 0 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.worklog-form fieldset label {
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.worklog-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.worklog-form-actions button {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.worklog-form-actions button[type='submit'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .worklog-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .worklog-form-actions {
+    grid-column: 1 / -1;
+  }
+}
+
+.worklog-form-error-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+.worklog-form-error-box {
+  width: 100%;
+  max-width: 360px;
+  padding: 24px;
+  border-radius: 12px;
+  background: var(--bg);
+  box-shadow: rgba(0, 0, 0, 0.2) 0 10px 30px;
+  text-align: center;
+}
+
+.worklog-form-error-box p {
+  margin: 0 0 20px;
+  color: var(--text-h);
+  line-height: 1.5;
+}
+
+.worklog-form-error-box button {
+  min-height: 44px;
+  padding: 0 24px;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}

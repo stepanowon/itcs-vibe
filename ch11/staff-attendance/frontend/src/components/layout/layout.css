@@ -1,0 +1,24 @@
+/* Bootstrap 유틸리티만으로 표현 안 되는 정확한 위치값만 최소로 정의한다 */
+
+.navbar {
+  height: 60px;
+}
+
+/* 데스크톱(768px~) 좌측 사이드바: 상단바 아래, 폭 220px 고정 */
+@media (min-width: 768px) {
+  .app-shell .nav.d-md-flex {
+    top: 60px;
+    bottom: 0;
+    width: 220px;
+    z-index: 1015;
+    overflow-y: auto;
+  }
+
+  .app-content {
+    margin-left: 220px;
+  }
+}
+
+.app-content {
+  max-width: 1100px;
+}
